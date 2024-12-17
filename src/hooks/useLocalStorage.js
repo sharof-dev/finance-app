@@ -1,8 +1,17 @@
-export const setItem = (name, value) => {
-    localStorage.setItem(name, JSON.stringify(value));
-}
+export const setItem = (key, value) => {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error("Error setting localStorage:", error);
+    }
+  };
 
-export const getItem = (name) => {
-    const item = localStorage.getItem(name);
-    return item? JSON.parse(item) : null;
-}
+export const getItem = (key, defaultValue = null) => {
+    try {
+      const storedValue = localStorage.getItem(key);
+      return storedValue ? JSON.parse(storedValue) : defaultValue;
+    } catch (error) {
+      console.error("Error getting localStorage:", error);
+      return defaultValue;
+    }
+  };

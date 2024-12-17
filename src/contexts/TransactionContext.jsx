@@ -1,12 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { getItem, setItem } from "../hooks/useLocalStorage";
 
 const TransactionsContext = createContext();
 
 export const TransactionsProvider = ({ children }) => {
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState(getItem("transactions") && []);
   const [exchangeRates, setExchangeRates] = useState({});
   const [baseCurrency, setBaseCurrency] = useState("USD");
   const [isFetched, setIsFetched] = useState(false)
+  console.log(getItem("transactions"))
 
   const mockTransactions = [
     { id: 1, name: "Figma Subscription", mode: "Credit Card", date: "26-06-2022", amount: -1950 },
@@ -38,7 +40,6 @@ export const TransactionsProvider = ({ children }) => {
       ),
     }));
   };
-
   useEffect(() => {
     if(!isFetched){
       fetchExchangeRates();
@@ -46,6 +47,9 @@ export const TransactionsProvider = ({ children }) => {
       setIsFetched(true);
     }
   }, [baseCurrency,isFetched]);
+  useEffect(() => {
+    setItem("transactions", transactions); 
+  }, [transactions]);
 
   return (
     <TransactionsContext.Provider
