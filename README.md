@@ -8,3 +8,8 @@
     repository clone:
     git clone https://github.com/your-username/personal-finance-dashboard.git
     cd personal-finance-dashboard
+
+    Installing Required Packages:
+    Npm install
+    # or
+    Yarn
