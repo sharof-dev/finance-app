@@ -4,7 +4,7 @@
     #Node.js(v14)up
     #Npm or yarn as a package manager
 
-#Steps
+# Steps
     repository clone:
-    git clone https://github.com/your-username/personal-finance-dashboard.git
+    git clone https://github.com/your-username/personal-finance-dashboard.git 
     cd personal-finance-dashboard
