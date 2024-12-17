@@ -13,3 +13,19 @@
     Npm install
     # or
     Yarn
+
+# Launching the project
+    npm run dev
+    # or
+    yarn dev
+Visit http://localhost:5174 a browser.
+
+# Future Improvement Suggestions
+
+OAuth Integration: For authenticating users.
+
+Additional Currencies: Support for more currencies.
+
+Progressive Web App (PWA): Configure the project as a PWA to work offline.
+
+Data Backup: Ability to save data to the server.
