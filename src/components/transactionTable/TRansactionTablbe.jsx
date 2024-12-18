@@ -25,16 +25,14 @@ function TransactionsTable() {
   };
 
   const applyFilters = () => {
-    if (!transactions || transactions.length === 0) {
-      return []; // Agar tranzaksiyalar bo'lmasa, bo'sh massiv qaytaradi
-    }
+    if (!transactions || transactions.length === 0) return [];
     const { startDate, endDate, category } = filters;
-  
     return transactions.filter((transaction) => {
+      const transactionDate = new Date(transaction.date.replace(/-/g, '/'));
       return (
-        (!startDate || new Date(transaction.date.replace(/-/g, '/')) >= new Date(startDate)) &&
-        (!endDate || new Date(transaction.date) <= new Date(endDate)) &&
-        (!category || (transaction.mode && transaction.mode.toLowerCase().includes(category.toLowerCase())))
+        (!startDate || transactionDate >= new Date(startDate)) &&
+        (!endDate || transactionDate <= new Date(endDate)) &&
+        (!category || transaction.mode.toLowerCase().includes(category.toLowerCase()))
       );
     });
   };

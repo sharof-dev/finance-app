@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useTransactions } from '../../contexts/TransactionContext';
-import { getItem, setItem } from '../../hooks/useLocalStorage';
+import { setItem } from '../../hooks/useLocalStorage';
 
 function Modals({ handleClose, show, handleShow }) {
   const { setTransactions } = useTransactions()
@@ -16,15 +16,14 @@ function Modals({ handleClose, show, handleShow }) {
       mode: mode.current.value,
       amount: amount.current.value,
       date: new Date().toLocaleDateString(),
-      id: new Date().getMilliseconds()
+      id: new Date().getTime()
     }
     setTransactions((prev) => {
       const updatedTransactions = [...prev, event];
-      setItem("transactions", updatedTransactions); // Update localStorage
+      setItem("trans", updatedTransactions); 
       return updatedTransactions;
     });
     handleClose();
-    console.log(event);
   }
 
   return (

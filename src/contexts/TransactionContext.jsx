@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getItem, setItem } from "../hooks/useLocalStorage";
-
 const TransactionsContext = createContext();
 
 export const TransactionsProvider = ({ children }) => {
-  const [transactions, setTransactions] = useState(getItem("transactions") && []);
+  const [transactions, setTransactions] = useState([]);
   const [exchangeRates, setExchangeRates] = useState({});
   const [baseCurrency, setBaseCurrency] = useState("USD");
   const [isFetched, setIsFetched] = useState(false)
@@ -41,15 +40,25 @@ export const TransactionsProvider = ({ children }) => {
     }));
   };
   useEffect(() => {
-    if(!isFetched){
+    if (!isFetched) {
       fetchExchangeRates();
-      setTransactions(mockTransactions);
+      if (transactions.length === 0) {
+        setTransactions(mockTransactions);
+      }
       setIsFetched(true);
     }
-  }, [baseCurrency,isFetched]);
+  }, [baseCurrency, isFetched, transactions.length]);
+
   useEffect(() => {
-    setItem("transactions", transactions); 
+    setItem("transactions", transactions);
   }, [transactions]);
+  
+  useEffect(() => {
+    const savedTransactions = getItem("trans", []);
+    if (savedTransactions.length > 0) {
+      setTransactions(savedTransactions);
+    }
+  }, []);
 
   return (
     <TransactionsContext.Provider
